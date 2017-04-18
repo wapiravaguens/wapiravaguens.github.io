@@ -1,6 +1,8 @@
 var markers = [];
 var police = [];
 var library = [];
+var crime = [];
+var park = [];
 var scrollCount = 0;
 
 // Google Map
@@ -18,7 +20,7 @@ function initMap() {
   markerP = new google.maps.Marker({ 
     position: {lat: 41.8708, lng: -87.6505}, 
     map: map,
-    icon: { url: 'https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_blue.png'},
+    icon: { url: 'http://www.fancyicons.com/free-icons/232/science/png/256/university_256.png',  scaledSize : new google.maps.Size(35, 35)},
     title: 'Department of Computer Science'
   })
 
@@ -29,7 +31,11 @@ function initMap() {
   });
 
   Chicago = new google.maps.LatLng(41.8708, -87.6505);
-  // Query dataSet affordable rental housing developments
+  dataPlaces();
+}
+
+// Query dataSet affordable rental housing developments
+function dataPlaces(){
   $.ajax({
     url: "https://data.cityofchicago.org/resource/uahe-iimk.json",
     type: "GET",
@@ -43,28 +49,22 @@ function initMap() {
       markers[i] = new google.maps.Marker({
         position: location,
         map: map,
-        title: 'Affordable Place'
+        title: 'Affordable Place',
+        icon: {url: 'http://www.vavos.nl/images/ico-in-rond-huis.png', scaledSize : new google.maps.Size(35, 35)},
       });
-      markers[i].distance = google.maps.geometry.spherical.computeDistanceBetween(location, Chicago) / 1000;
       markers[i].data = data[i];
+      markers[i].distance = google.maps.geometry.spherical.computeDistanceBetween(location, Chicago) / 1000;
+      markers[i].libraries = 0;
+      markers[i].security = 50;
+      markers[i].parks = 0;
       addMarker(markers[i]);
-
-      // $.ajax({
-      //   url: "http://campuapi.azurewebsites.net/Home/ZillowApi?url=GetSearchResults.htm?zws-id=X1-ZWz1fqj5j6s3yj_4dboj$address=" + data[i].address + "$citystatezip=Chicago%2C+IL$rentzestimate=true",
-      //   type: "GET",
-      //   crossDomain: true,
-      //   datatype: "xml",
-      // }).done(function(data) {
-      //   var info = xml2json(data);
-      //   if (info["SearchResults:searchresults"].message.code ==  0) {
-      //     console.log(info);
-      //   }
-      // });
     }
-    createItems();
+    dataLibraries();
   });
+}
 
-  // Query dataSet librarys
+// Query dataSet Libraries
+function dataLibraries(){
   $.ajax({
     url: "https://data.cityofchicago.org/resource/psqp-6rmg.json",
     type: "GET",
@@ -77,16 +77,26 @@ function initMap() {
       library[i] = new google.maps.Marker({ 
         position: location,
         map: map,
-        icon: { url: 'https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_green.png'},
+        icon: { url: 'http://biblioteca.unedteruel.org/images/librosicono.png', scaledSize : new google.maps.Size(35, 35)},
         title: 'Library',
       })
       library[i].data = data[i];
       addMarkerLib(library[i]);
+      for (var j = markers.length - 1; j >= 0; j--) {
+        var markerLocation = new google.maps.LatLng(markers[j].data.latitude, markers[j].data.longitude);
+        var distance = google.maps.geometry.spherical.computeDistanceBetween(markerLocation, location);
+        if (distance < 2000) {
+          markers[j].libraries += 1;
+        }
+      }
     }
+    dataParks();
     clearMarkers(library);
   });
+}
 
-  // Query dataSet police station
+// Query dataSet police station
+function dataPolices(){
   $.ajax({
       url: "https://data.cityofchicago.org/resource/9rg7-mz9y.json",
       type: "GET",
@@ -100,15 +110,75 @@ function initMap() {
         police[i] = new google.maps.Marker({ 
           position: location,
           map: map,
-          icon: { url: 'https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_black.png'},
+          icon: { url: 'http://icon-icons.com/icons2/35/PNG/512/police_avatar_person_2845.png', scaledSize : new google.maps.Size(35, 35)},
           title: 'Police Station'
         })
         police[i].data = data[i];
         addMarkerPolice(police[i]);
+        for (var j = markers.length - 1; j >= 0; j--) {
+          var markerLocation = new google.maps.LatLng(markers[j].data.latitude, markers[j].data.longitude);
+          var distance = google.maps.geometry.spherical.computeDistanceBetween(markerLocation, location);
+          if (distance < 2000) {
+            markers[j].security += 20;
+          }
+        }
       }
+      dataCrimes();
       clearMarkers(police);
-    });
+  });
 }
+
+// Query dataSet parks
+function dataParks(){
+  $.ajax({
+    url: "https://data.cityofchicago.org/resource/4xwe-2j3y.json",
+    type: "GET",
+    data: {
+      "$$app_token" : "ONMw6rs4vX99YkE7M5cOetVo9"
+    }
+  }).done(function(data) {
+    for (var i = data.length - 1; i >= 0; i--) {
+      if (data[i].location != undefined) {
+        var location = new google.maps.LatLng(data[i].location.coordinates[1], data[i].location.coordinates[0]);
+        for (var j = markers.length - 1; j >= 0; j--) {
+          var markerLocation = new google.maps.LatLng(markers[j].data.latitude, markers[j].data.longitude);
+          var distance = google.maps.geometry.spherical.computeDistanceBetween(markerLocation, location);
+          if (distance < 1200) {
+            markers[j].parks += 1;
+          }
+        }  
+      }
+    }
+    dataPolices();
+  });
+}
+
+// Query dataSet crimes
+function dataCrimes(){
+  $.ajax({
+      url: "https://data.cityofchicago.org/resource/6zsd-86xi.json",
+      type: "GET",
+      data: {
+        "$limit" : 2000,
+        "$where" : "latitude != 0 AND longitude != 0",
+        "$$app_token" : "ONMw6rs4vX99YkE7M5cOetVo9"
+      }
+    }).done(function(data) {
+      for (var i = data.length - 1; i >= 0; i--) {
+        var location = new google.maps.LatLng(data[i].latitude, data[i].longitude);
+        for (var j = markers.length - 1; j >= 0; j--) {
+          var markerLocation = new google.maps.LatLng(markers[j].data.latitude, markers[j].data.longitude);
+          var distance = google.maps.geometry.spherical.computeDistanceBetween(markerLocation, location);
+          if (distance < 1000) {
+            markers[j].security -= 0.5;
+          }
+        }
+        
+      }
+      createItems();
+  });
+}
+
 
 // Add markers map
 var prev_infowindow ;
@@ -130,31 +200,12 @@ function addMarker(marker) {
 
 // Show data in information section
 function showInformation(marker){
-  crimes(marker.data.community_area_number);
   document.getElementById("property-name").innerHTML = "<b>Properity Name</b>: " + marker.data.property_name;
   document.getElementById("property-type").innerHTML = "<b>Properity Type</b>: " + marker.data.property_type;
   document.getElementById("community-area-name").innerHTML = "<b>Community Area Name</b>: " + marker.data.community_area;
-  document.getElementById("distance").innerHTML = "<b>Distance</b>: " + marker.distance.toFixed(2) + "km";
   document.getElementById("address").innerHTML = "<b>Address</b>: " + marker.data.address;
   document.getElementById("management_company").innerHTML = "<b>Management Company</b>: " + marker.data.management_company;
   document.getElementById("phone-number").innerHTML = "<b>Phone Number</b>: " + marker.data.phone_number;
-}
-
-// Show data of crimes in information section
-function crimes(community_area_number){
-  $.ajax({
-    url: 'https://data.cityofchicago.org/resource/6zsd-86xi.json?$query=SELECT community_area, count(community_area) WHERE community_area = \'' + community_area_number + '\' AND year = 2017 GROUP BY community_area',
-    type: "GET",
-    data: {
-      "$$app_token" : "ONMw6rs4vX99YkE7M5cOetVo9"
-  }
-  }).done(function(data) {
-    if (community_area_number != undefined) {
-      document.getElementById("crimes-2017").innerHTML = "<b>Number of crimes in 2017 in the community</b>: " + data[0].count_community_area;
-    } else {
-      document.getElementById("crimes-2017").innerHTML = "<b>Number of crimes in 2017 in the community</b>: undefined";
-    }
-  });
 }
 
 // Action when a item of the list is click
@@ -187,23 +238,52 @@ function updateList(marker){
   }
   selected = marker.item;
   marker.item.setAttribute("class", "list-group-item active");
-  // var position = new google.maps.LatLng(marker.data.latitude, marker.data.longitude);
-  // map.setCenter(position);
   scroll(marker.item);
-}
-
-// help scroll list
-function scroll(item){
-  $("#list").scrollTop(item.scroll);
 }
 
 // Order list by distance
 function orderByDistance() {
   document.getElementById("list").innerHTML = "";
   markers.sort(function(a, b){return b.distance - a.distance});
-  createItems();
+  orderList();
   clickList(markers[markers.length - 1].item);
   scroll(markers[markers.length - 1].item);
+}
+
+// Order list by libraries
+function orderByLibraries() {
+  document.getElementById("list").innerHTML = "";
+  markers.sort(function(a, b){return a.libraries - b.libraries});
+  orderList();
+  clickList(markers[markers.length - 1].item);
+  scroll(markers[markers.length - 1].item);
+}
+
+// Order list by security
+function orderBySecurity() {
+  document.getElementById("list").innerHTML = "";
+  markers.sort(function(a, b){return a.security - b.security});
+  orderList();
+  clickList(markers[markers.length - 1].item);
+  scroll(markers[markers.length - 1].item);
+}
+
+function orderByParks() {
+  document.getElementById("list").innerHTML = "";
+  markers.sort(function(a, b){return a.parks - b.parks});
+  orderList();
+  clickList(markers[markers.length - 1].item);
+  scroll(markers[markers.length - 1].item);
+}
+
+// help order list-group
+function orderList(){
+  scrollCount = 0;
+  for (var i = markers.length - 1; i >= 0; i--) {
+    $("#list").append(markers[i].item);
+    markers[i].item.scroll = scrollCount;
+    scrollCount += 63; 
+  }
 }
 
 // create items and append to listItem
@@ -213,18 +293,27 @@ function createItems(){
   var listItem = document.createElement("a");
       listItem.setAttribute("class","list-group-item");
       listItem.setAttribute("onclick","clickList(this)");
-      listItem.innerHTML = "<h4 class=list-group-item-heading>" + markers[i].data.property_name +"</h4>" + "<p class=list-group-item-text>" + "<span class=\'label label-info\'>" + "Distance: " + markers[i].distance.toFixed(2) + "km" +"</span>" + "</p>";
-      // listItem.innerHTML = "<h4 class=list-group-item-heading>" + markers[i].data.property_name +"</h4>" + "<p class=list-group-item-text>" + "Distance: " + markers[i].distance.toFixed(2) + "km" +"</p>";
+      listItem.innerHTML = "<h4 class=list-group-item-heading>" + markers[i].data.property_name +"</h4>" + "<p class=list-group-item-text>" 
+      + "<span class=\'label label-info\'>" + "Distance: " + markers[i].distance.toFixed(2) + "km" +"</span>" 
+      + " "+  "<span class=\'label label-info\'>" + "Security: " + markers[i].security +"</span>"
+      + " "+  "<span class=\'label label-info\'>" + "Libraries: " + markers[i].libraries +"</span>" 
+      + " "+  "<span class=\'label label-info\'>" + "Parks: " + markers[i].parks +"</span>" 
+      +"</p>";
       listItem.marker = markers[i];
       $("#list").append(listItem);
 
       // Association between markers and listItem
-      markers[i].item = listItem;
+      markers[i].item = listItem; 
 
       // Set scroll control
       listItem.scroll = scrollCount;
-      scrollCount += 63;    
+      scrollCount += 63; 
   }
+}
+
+// help scroll list
+function scroll(item){
+  $("#list").scrollTop(item.scroll);
 }
 
 // button "Default Position"
@@ -256,11 +345,11 @@ function addMarkerPolice(marker){
 
 // button "Police Station"
 function policeStation(){
-  if ((document.getElementById("policeStation").innerHTML) == "Show Police Station") {
-    document.getElementById("policeStation").innerHTML = "Hide Police Station";
+  if ((document.getElementById("policeStation").innerHTML) == "Show Police Stations") {
+    document.getElementById("policeStation").innerHTML = "Hide Police Stations";
     showMarkers(police);
   } else {
-    document.getElementById("policeStation").innerHTML = "Show Police Station";
+    document.getElementById("policeStation").innerHTML = "Show Police Stations";
     if (prev_infowindow_p != undefined) {
       prev_infowindow_p.close();
     }
@@ -268,7 +357,7 @@ function policeStation(){
   }
 }
 
-// markers Librarys
+// markers Libraries
 var prev_infowindow_l;
 function addMarkerLib(marker){
   var string =  "<b>Name</b>: " + marker.data.name_  + "<br>" + "<b>Address</b>: " + marker.data.address + "<br>" + "<b>Phone</b>: " + marker.data.phone;
@@ -288,13 +377,13 @@ function addMarkerLib(marker){
   });
 }
 
-// button "Librarys"
-function librarys(){
-  if ((document.getElementById("librarys").innerHTML) == "Show Librarys") {
-    document.getElementById("librarys").innerHTML = "Hide Librarys";
+// button "Libraries"
+function libraries(){
+  if ((document.getElementById("libraries").innerHTML) == "Show Libraries") {
+    document.getElementById("libraries").innerHTML = "Hide libraries";
     showMarkers(library);
   } else {
-    document.getElementById("librarys").innerHTML = "Show Librarys";
+    document.getElementById("libraries").innerHTML = "Show libraries";
     if (prev_infowindow_l != undefined) {
       prev_infowindow_l.close();
     }
@@ -316,34 +405,4 @@ function clearMarkers(marker) {
 
 function showMarkers(marker) {
   setMapOnAll(map, marker);
-}
-
-// parse xml to json
-function xml2json(xml) {
-  try {
-    var obj = {};
-    if (xml.children.length > 0) {
-      for (var i = 0; i < xml.children.length; i++) {
-        var item = xml.children.item(i);
-        var nodeName = item.nodeName;
-
-        if (typeof (obj[nodeName]) == "undefined") {
-          obj[nodeName] = xml2json(item);
-        } else {
-          if (typeof (obj[nodeName].push) == "undefined") {
-            var old = obj[nodeName];
-
-            obj[nodeName] = [];
-            obj[nodeName].push(old);
-          }
-          obj[nodeName].push(xml2json(item));
-        }
-      }
-    } else {
-      obj = xml.textContent;
-    }
-    return obj;
-  } catch (e) {
-      console.log(e.message);
-  }
 }
