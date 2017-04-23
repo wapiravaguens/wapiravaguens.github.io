@@ -32,6 +32,9 @@ function initMap() {
 
   Chicago = new google.maps.LatLng(41.8708, -87.6505);
   dataPlaces();
+  var weather = getCurrentWeather(41.8708, -87.6505);
+  document.getElementById("weather").innerHTML = "Current weather is " + weather.Weather + ", " + weather.Temp + "°F";
+
 }
 
 // Query dataSet affordable rental housing developments
@@ -405,4 +408,25 @@ function clearMarkers(marker) {
 
 function showMarkers(marker) {
   setMapOnAll(map, marker);
+}
+
+// Get Weather
+function getCurrentWeather(lat, lng) {
+  var url = "http://forecast.weather.gov/MapClick.php?lat=" + lat + "&lon=" + lng + "&FcstType=json";
+  var resp;
+  var xmlHttp;
+  var obj;
+ 
+  resp = "" ;
+  xmlHttp = new XMLHttpRequest();
+
+  if(xmlHttp != null)
+  {
+      xmlHttp.open( "GET", url, false );
+      xmlHttp.send( null );
+      resp = xmlHttp.responseText;
+      obj = JSON.parse(resp);
+  }
+
+  return obj.currentobservation;
 }

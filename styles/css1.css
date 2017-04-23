@@ -1,6 +1,6 @@
 #map {
   position: absolute;
-  height: 550px;
+  height: 590px;
   width: 100%;
   padding: 2px;
   display: block;
@@ -20,7 +20,7 @@ html, body {
 }
 
 .label-info {
-    background-color: rgba(91,192,222,0.80) !important;
+  background-color: rgba(91,192,222,0.80) !important;
 }
 
 .list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover{
@@ -33,4 +33,11 @@ html, body {
 
 .information {
   height: 200px;
+}
+
+.jumbotron {
+  height: 30px !important;
+  margin-bottom: 15px !important;
+  padding: 5px !important;
+  padding-left: 10px !important;
 }
