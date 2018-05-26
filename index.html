@@ -1,85 +1,86 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html>
 <head>
-	<title>Rent in Chicago</title>
-	<meta charset="utf-8">
-	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="styles/css1.css">
-	<!-- JS -->
-	<script src="scripts/js1.js"></script>
-	<!-- JQuery -->
-	<script   src="https://code.jquery.com/jquery-3.2.0.js"   integrity="sha256-wPFJNIFlVY49B+CuAIrDr932XSb6Jk3J1M22M3E2ylQ="   crossorigin="anonymous"></script>
-	<!-- D3 -->
-	<script src="https://d3js.org/d3.v4.js"></script>
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <title>Tweet Generator</title>
+
+  <!-- CSS/JS -->
+  <link rel="stylesheet" type="text/css" href="css1.css">
+  <script src="js1.js"></script>
+
+  <!-- W3 CSS -->
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+  <!-- Bootstrap 4 -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 </head>
 <body>
-	<div class="container principal">
 
-		<!-- Page Header-->
-		<div class="row">
-			<div id="col-sm-12 col-md-12">
-				<div class="page-header text-center">
-					<h1>Rent in Chicago</h1>
-				</div>
-			</div>
-		</div>
+<!-- Header -->
+<div>
+<header class="w3-display-container w3-content w3-center" style="max-width:1500px">
+  <img class="w3-image" src="header_background.jpg" alt="Me" >
+  <div class="w3-display-middle w3-padding-large w3-border w3-wide w3-text-light-grey w3-center">
+    <h1 class="w3-hide-medium w3-hide-small w3-xxxlarge">TWEET GENERATOR</h1>
+    <h5 class="w3-hide-large" style="white-space:nowrap">TWEET GENERATOR</h5>
+    <h3 class="w3-hide-medium w3-hide-small">Markov Chain</h3>
+  </div>
 
-		<!-- List and Map-->
-		<div class="row">
-			<div class="col-sm-5 col-md-5">
-				<div class="jumbotron">
-					<div id="weather"></div>
-				</div>
-				<div class="dropdown">
-				  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Order by
-				  <span class="caret"></span></button>
-				  <ul class="dropdown-menu">
-				    <li><a onclick="orderByDistance()">distance</a></li>
-				    <li><a onclick="orderBySecurity()">security</a></li>
-				    <li><a onclick="orderByLibraries()">libraries</a></li>
-				    <li><a onclick="orderByParks()">parks</a></li>
-				  </ul>
-				</div>
-				<div><h2>Affordable places</h2></div>
-				<div class="list-group" id="list">
-				</div>
-			</div>
-			<div class="col-sm-7 col-md-7"> 
-				<button type="button" class="btn btn-default" onclick="setMapDefault()">Default Position</button> 
-				<button type="button" class="btn btn-default" onclick="policeStation()" id="policeStation">Show Police Stations</button> 
-				<button type="button" class="btn btn-default" onclick="libraries()" id="libraries">Show Libraries</button> 
-				<div id="map"></div>		
-			</div>
-		</div>
+  <div class="w3-bar w3-light-grey w3-round w3-display-bottommiddle w3-hide-small" style="bottom:-16px">
+    <a href="#Home" class="w3-bar-item w3-button">Inicio</a>
+    <a href="#TweetsGenerator" class="w3-bar-item w3-button">Generador de tweets</a>
+    <a href="#About" class="w3-bar-item w3-button">Quienes Somos</a>
+  </div>
+</header>
+<div>
 
-		<!-- Information-->
-		<div class="row">
-			<div class="col-sm-5 col-md-5">
-				<div class="panel panel-primary information">
-					<div class="panel-heading">
-						<h3 class="panel-title">Information</h3>
-					</div>
-					<div class="panel-body">
-						<div id="property-name"></div>
-						<div id="property-type"></div>
-						<div id="community-area-name"></div>
-						<div id="address"></div>
-						<div id="management_company"></div>
-						<div id="phone-number"></div>
-					</div>
-				</div>
-			</div>
-		</div>
+<!-- Body -->
+<div class="w3-content w3-padding-large w3-margin-top">
 
-	</div>
+  <!-- Home -->
+  <div class="w3-light-grey w3-padding-large w3-padding-32 w3-margin-top w3-center" id="Home">
+    <p>Descripción</p>
+  </div>
 
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMgVnj6OFw5CPFArXeHKD9vDXeJfXqIQw&callback=initMap&libraries=geometry"
-	async defer></script>
+  <!-- Tweet Generator -->
+  <div class="w3-light-grey w3-padding-large w3-padding-32 w3-margin-top w3-center" id="TweetsGenerator">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <label>Escribe el nombre de tu cuenta twitter</label>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">@</span>
+            </div>
+            <input type="text" class="form-control" placeholder="example" aria-label="example" aria-describedby="basic-addon1">
+          </div>
+          <button type="button" class="btn btn-primary btn-lg btn-block">Generar Tweet</button>
+        </div>
+        <div class="col">
+          Tweet Generado:
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- About -->
+  <div class="w3-light-grey w3-padding-large w3-padding-32 w3-margin-top w3-center" id="About">
+    <h1>Proyecto Final</h1>
+    <h2>Modelos estocásticos y simulación en computación y comunicaciones</h2>
+    <br>
+    <p><strong>Integrantes:</strong></p>
+    <p>Juan Manuel Alvarez Duque</p>
+    <p>Nicolas Campuzano Angulo</p>
+    <p>Luis Fernando Castro Peralta</p>
+    <p>Juan David Garcia Niño</p>
+    <p>Wilson Andres Piravaguen Serrano</p>
+    <br>
+    <p><strong>Profesor:</strong> Eric Julian Rodriguez</p>
+  </div>
+</div>
+
+
 </body>
 </html>
