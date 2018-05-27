@@ -106,17 +106,16 @@
             alert("Escribe un username válido");
             return;
           }
-          var params = {
-            "username": username,
-          };
           $.ajax({
-            url: 'request.php',
-            type: 'post',
-            data: params,
+            url: 'request.php?username='+username,
+            type: 'GET',
             dataType: 'json',
             success: function (response) {
               alert("Funciona");
               console.log(response);
+            },
+            error: function(error){
+              console.log(error);
             }
           });
         }
