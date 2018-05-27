@@ -101,9 +101,9 @@
       </div>
       <script type="text/javascript">
         function makeRequest() {
-          alert($("#username-box").text());
+          alert($("#username-box").val());
           var params = {
-            "username": $("#username-box").text(),
+            "username": $("#username-box").val(),
           };
           $.ajax({
             url: 'request.php',
