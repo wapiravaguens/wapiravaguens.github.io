@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Tweet Generator</title>
 
@@ -11,84 +12,111 @@
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
   <!-- Bootstrap 4 -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+    crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+    crossorigin="anonymous"></script>
 </head>
+
 <body>
 
-<!-- Header -->
-<div>
-<header class="w3-display-container w3-content w3-center" style="max-width:1500px">
-  <img class="w3-image" src="header_background.jpg" alt="Me" >
-  <div class="w3-display-middle w3-padding-large w3-border w3-wide w3-text-light-grey w3-center">
-    <h1 class="w3-hide-medium w3-hide-small w3-xxxlarge">TWEET GENERATOR</h1>
-    <h5 class="w3-hide-large" style="white-space:nowrap">TWEET GENERATOR</h5>
-    <h3 class="w3-hide-medium w3-hide-small">Markov Chain</h3>
-  </div>
-
-  <div class="w3-bar w3-light-grey w3-round w3-display-bottommiddle w3-hide-small" style="bottom:-16px">
-    <a href="#" class="w3-bar-item w3-button">Inicio</a>
-    <a href="#TweetsGenerator" class="w3-bar-item w3-button">Generador de tweets</a>
-    <a href="#About" class="w3-bar-item w3-button">Quienes Somos</a>
-  </div>
-</header>
-<div>
-
-<!-- Body -->
-<div class="w3-content w3-padding-large w3-margin-top">
-
-  <!-- Home -->
-  <div class="w3-light-grey w3-padding-large w3-padding-32 w3-margin-top w3-center" id="Home">
-    <p>Descripción</p>
-  </div>
-
-  <!-- Tweet Generator -->
-  <div class="w3-light-grey w3-padding-large w3-padding-32 w3-margin-top w3-center" id="TweetsGenerator">
-    <div class="container">
-      <div class="row">
-
-        <div class="col">
-          <label>Escribe el nombre de tu cuenta twitter</label>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1">@</span>
-            </div>
-            <input type="text" class="form-control" placeholder="example" aria-label="example" aria-describedby="basic-addon1">
-          </div>
-          <button type="button" class="btn btn-primary btn-lg btn-block">Generar Tweet</button>
-        </div>
-
-        <div class="col">
-          <div class="card bg-light mb-3">
-            <div class="card-header">Tweet Generado</div>
-            <div class="card-body">
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-          </div>
-        </div>
-        
+  <!-- Header -->
+  <div>
+    <header class="w3-display-container w3-content w3-center" style="max-width:1500px">
+      <img class="w3-image" src="header_background.jpg" alt="Me">
+      <div class="w3-display-middle w3-padding-large w3-border w3-wide w3-text-light-grey w3-center">
+        <h1 class="w3-hide-medium w3-hide-small w3-xxxlarge">TWEET GENERATOR</h1>
+        <h5 class="w3-hide-large" style="white-space:nowrap">TWEET GENERATOR</h5>
+        <h3 class="w3-hide-medium w3-hide-small">Markov Chain</h3>
       </div>
-    </div>
-  </div>
 
-  <!-- About -->
-  <div class="w3-light-grey w3-padding-large w3-padding-32 w3-margin-top w3-center" id="About">
-    <h1>Proyecto Final</h1>
-    <h2>Modelos estocásticos y simulación en computación y comunicaciones</h2>
-    <br>
-    <p><strong>Integrantes:</strong></p>
-    <p>Juan Manuel Alvarez Duque</p>
-    <p>Nicolas Campuzano Angulo</p>
-    <p>Luis Fernando Castro Peralta</p>
-    <p>Juan David Garcia Niño</p>
-    <p>Wilson Andres Piravaguen Serrano</p>
-    <br>
-    <p><strong>Profesor:</strong> Eric Julian Rodriguez</p>
-  </div>
-  
-</div>
+      <div class="w3-bar w3-light-grey w3-round w3-display-bottommiddle w3-hide-small" style="bottom:-16px">
+        <a href="#" class="w3-bar-item w3-button">Inicio</a>
+        <a href="#TweetsGenerator" class="w3-bar-item w3-button">Generador de tweets</a>
+        <a href="#About" class="w3-bar-item w3-button">Quienes Somos</a>
+      </div>
+    </header>
+    <div>
 
+      <!-- Body -->
+      <div class="w3-content w3-padding-large w3-margin-top">
+
+        <!-- Home -->
+        <div class="w3-light-grey w3-padding-large w3-padding-32 w3-margin-top w3-center" id="Home">
+          <p>Descripción</p>
+        </div>
+
+        <!-- Tweet Generator -->
+        <div class="w3-light-grey w3-padding-large w3-padding-32 w3-margin-top w3-center" id="TweetsGenerator">
+          <div class="container">
+            <div class="row">
+
+              <div class="col">
+                <label>Escribe el nombre de tu cuenta twitter</label>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">@</span>
+                  </div>
+                  <input type="text" id="username-box" class="form-control" placeholder="example" aria-label="example" aria-describedby="basic-addon1">
+                </div>
+                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="makeRequest()">Generar Tweet</button>
+              </div>
+
+              <div class="col">
+                <div class="card bg-light mb-3">
+                  <div class="card-header">Tweet Generado</div>
+                  <div class="card-body">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- About -->
+        <div class="w3-light-grey w3-padding-large w3-padding-32 w3-margin-top w3-center" id="About">
+          <h1>Proyecto Final</h1>
+          <h2>Modelos estocásticos y simulación en computación y comunicaciones</h2>
+          <br>
+          <p>
+            <strong>Integrantes:</strong>
+          </p>
+          <p>Juan Manuel Alvarez Duque</p>
+          <p>Nicolas Campuzano Angulo</p>
+          <p>Luis Fernando Castro Peralta</p>
+          <p>Juan David Garcia Niño</p>
+          <p>Wilson Andres Piravaguen Serrano</p>
+          <br>
+          <p>
+            <strong>Profesor:</strong> Eric Julian Rodriguez</p>
+        </div>
+
+      </div>
+      <script type="text/javascript">
+        function makeRequest() {
+          alert($("#username-box").text());
+          var params = {
+            "username": $("#username-box").text(),
+          };
+          $.ajax({
+            url: 'request.php',
+            type: 'post',
+            data: params,
+            dataType: 'json',
+            success: function (response) {
+              alert("Funciona");
+              console.log(response);
+            }
+          });
+        }
+      </script>
 </body>
+
 </html>
