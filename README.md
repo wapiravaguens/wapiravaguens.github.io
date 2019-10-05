@@ -1,5 +1,7 @@
-﻿# Proyecto Final Modelos estocásticos y simulación en computación y comunicaciones
+# Grafica Interactiva
 
-Aplicación de cadenas de markov para la generación de tweets a partir de tweets previos tomados de una cuenta en particular de twitter.
+Wilson Andres Piravaguen
 
-Link: https://wapiravaguens.github.io/
+## Ejercicio 1
+
+Página web sobre Corea del Sur.

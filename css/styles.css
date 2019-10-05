@@ -1,0 +1,80 @@
+/* Grafica Interactiva 2019-03 */
+/* Wilson Andres Piravaguen */
+
+@charset "UTF-8";
+
+body {margin: 0;}
+
+/* Estilo para el banner*/
+.banner {
+  display: block;
+  width: 100%;
+}
+
+/* Estilos barra de menu */
+ul.menunav {
+  display: flex; 
+  justify-content: center; 
+  list-style-type: none;
+  margin: 0;
+  padding: 0;    
+  background-color: #000000;
+}
+
+ul.menunav li {float: left;}
+
+/* Estilos texto del menu */
+ul.menunav li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+ul.menunav li a:hover:not(.active) {background-color: #ce2a37;}
+ul.menunav li a.active {background-color: #0045a1;}
+
+h1 {
+  text-align: center;
+}
+
+.container {
+  text-align: center;
+  display: block;
+  overflow: auto;
+  margin: 1vw;
+  box-shadow: 0 0px 4px 0 rgba(0,0,0,0.16),0 0px 10px 0 rgba(0,0,0,0.12);
+  padding: 0 15vw 0 15vw;
+  font-size: 20px; 
+}
+
+.flag {
+  max-width: 25vw;
+  box-shadow: 0 0px 4px 0 rgba(0,0,0,0.16),0 0px 10px 0 rgba(0,0,0,0.12);
+  margin: 0.5vw
+}
+
+.footer {
+  background-color: #000000;
+  color: white;
+  padding: 3px 0px 3px 50px;
+}
+
+
+/* Configuración para pantallas de maximo 780px de ancho */
+@media only screen and (max-width: 780px) {
+}
+
+/* Configuración para pantallas de maximo 480px de ancho */
+@media only screen and (max-width: 480px) { 
+  /* Hacer que el menu se muestre hacia abajo */
+  ul.menunav {
+    display: block; 
+  }
+  ul.menunav li a {
+    padding: 7px 8px;
+  }
+  ul.menunav li { 
+    float: none; 
+  } 
+}
