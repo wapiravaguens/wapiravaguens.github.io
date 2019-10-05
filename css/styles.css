@@ -3,13 +3,35 @@
 
 @charset "UTF-8";
 
+@font-face {
+  font-family: Roboto-Regular;
+  src: url('../fonts/Roboto-Regular.ttf');
+}
+
+@font-face {
+  font-family: Roboto-Medium;
+  src: url('../fonts/Roboto-Medium.ttf');
+}
+
+@font-face {
+  font-family: Roboto-MediumItalic;
+  src: url('../fonts/Roboto-MediumItalic.ttf');
+}
+
 body {margin: 0;}
+h1, h2, h3 {font-family: Roboto-Medium; text-align: center;}
+h1 a {color: black;}
+h1 a:hover {color: #0045a1;}
+p {font-family: Roboto-Regular;}
+.italic {font-family: Roboto-MediumItalic;}
+
 
 /* Estilo para el banner*/
 .banner {
   display: block;
   width: 100%;
 }
+
 
 /* Estilos barra de menu */
 ul.menunav {
@@ -20,8 +42,8 @@ ul.menunav {
   padding: 0;    
   background-color: #000000;
 }
-
 ul.menunav li {float: left;}
+
 
 /* Estilos texto del menu */
 ul.menunav li a {
@@ -30,14 +52,14 @@ ul.menunav li a {
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
+  font-size: 1.25em;
+  font-family: Roboto-Medium;
 }
-ul.menunav li a:hover:not(.active) {background-color: #ce2a37;}
+ul.menunav li a:hover {background-color: #ce2a37;}
 ul.menunav li a.active {background-color: #0045a1;}
 
-h1 {
-  text-align: center;
-}
 
+/* Estilos para los contenedores principales*/
 .container {
   text-align: center;
   display: block;
@@ -47,34 +69,78 @@ h1 {
   padding: 0 15vw 0 15vw;
   font-size: 20px; 
 }
+.container li {
+  text-align: left;
+  margin: 5px;
+}
+.container li a:link {color: #0045a1;}
+.container li a:hover {color: #ce2a37;}
 
-.flag {
-  max-width: 25vw;
+
+/* Estilos para las imagenes */
+.img_p {
+  max-width: 50vw;
+  max-height: 20vw;
   box-shadow: 0 0px 4px 0 rgba(0,0,0,0.16),0 0px 10px 0 rgba(0,0,0,0.12);
   margin: 0.5vw
 }
 
+
+/* Estilos para el mapa del sitio */
+.mapa { max-width: 60vw;}
+
+
+
+/* Estilos del pie de pagina */
 .footer {
   background-color: #000000;
   color: white;
-  padding: 3px 0px 3px 50px;
+  padding: 3px 0px 3px 0px;
+  text-align: center;
 }
-
 
 /* Configuración para pantallas de maximo 780px de ancho */
 @media only screen and (max-width: 780px) {
+  /* Ajustar el tamaño de las imagenes */
+  .mapa {
+    max-width: 80vw;
+  }
+  .img_p {
+    max-width: 60vw;
+    max-height: 35vw;
+    box-shadow: 0 0px 4px 0 rgba(0,0,0,0.16),0 0px 10px 0 rgba(0,0,0,0.12);
+    margin: 0.25vw
+  }
 }
+
 
 /* Configuración para pantallas de maximo 480px de ancho */
 @media only screen and (max-width: 480px) { 
-  /* Hacer que el menu se muestre hacia abajo */
+  /* Hacer que la barra de menu se muestre hacia abajo */
   ul.menunav {
-    display: block; 
-  }
-  ul.menunav li a {
-    padding: 7px 8px;
+    display: block;
   }
   ul.menunav li { 
     float: none; 
   } 
+  ul.menunav li a {
+    padding: 7px 8px;
+  }
+  /* Reducir el tamaño de los textos */
+  p {
+    font-size: 0.8em;
+  }
+  h1 {
+    font-size: 1.33em;
+  }
+  h3 {
+    font-size: 1em;
+  }
+  /* Ajustar el tamaño de las imagenes */
+  .img_p {
+    max-width: 80vw;
+    max-height: 40vw;
+    box-shadow: 0 0px 4px 0 rgba(0,0,0,0.16),0 0px 10px 0 rgba(0,0,0,0.12);
+    margin: 0.25vw
+  }
 }
