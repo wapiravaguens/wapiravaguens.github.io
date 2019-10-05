@@ -139,8 +139,12 @@ ul.menunav li a.active {background-color: #0045a1;}
   /* Ajustar el tamaño de las imagenes */
   .img_p {
     max-width: 80vw;
-    max-height: 40vw;
+    max-height: 50vw;
     box-shadow: 0 0px 4px 0 rgba(0,0,0,0.16),0 0px 10px 0 rgba(0,0,0,0.12);
     margin: 0.25vw
+  }
+  /* Ajustar el padding del contenedor*/
+  .container {
+    padding: 0 7vw 0 7vw;
   }
 }
