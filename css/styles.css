@@ -3,6 +3,7 @@
 
 @charset "UTF-8";
 
+/* Importar las fuentes usadas en la pagina */
 @font-face {
   font-family: Roboto-Regular;
   src: url('../fonts/Roboto-Regular.ttf');
@@ -19,10 +20,10 @@
 }
 
 body {margin: 0;}
-h1, h2, h3 {font-family: Roboto-Medium; text-align: center;}
-h1 a {color: black;}
+h1, h2, h3 {font-family: Roboto-Medium; text-align: center;} /* Asignar la fuente a los titulos h1, h2 y h3 */
+h1 a {color: black;} 
 h1 a:hover {color: #0045a1;}
-p {font-family: Roboto-Regular;}
+p {font-family: Roboto-Regular;} /* Asignar la fuente a los parrafos */
 .italic {font-family: Roboto-MediumItalic;}
 
 
@@ -65,9 +66,10 @@ ul.menunav li a.active {background-color: #0045a1;}
   display: block;
   overflow: auto;
   margin: 1vw;
-  box-shadow: 0 0px 4px 0 rgba(0,0,0,0.16),0 0px 10px 0 rgba(0,0,0,0.12);
+  box-shadow: 0 0px 4px 0 rgba(0,0,0,0.16),0 0px 10px 0 rgba(0,0,0,0.12); /* Sombra alredor de los contenedores */
   padding: 0 15vw 0 15vw;
   font-size: 20px; 
+  overflow-wrap: break-word;
 }
 .container li {
   text-align: left;
@@ -76,19 +78,22 @@ ul.menunav li a.active {background-color: #0045a1;}
 .container li a:link {color: #0045a1;}
 .container li a:hover {color: #ce2a37;}
 
+h3 {
+  text-align: left;
+}
+
 
 /* Estilos para las imagenes */
 .img_p {
   max-width: 50vw;
   max-height: 20vw;
-  box-shadow: 0 0px 4px 0 rgba(0,0,0,0.16),0 0px 10px 0 rgba(0,0,0,0.12);
+  box-shadow: 0 0px 4px 0 rgba(0,0,0,0.16),0 0px 10px 0 rgba(0,0,0,0.12); /* Sombra alredor de las imagenes */
   margin: 0.5vw
 }
 
 
 /* Estilos para el mapa del sitio */
 .mapa { max-width: 60vw;}
-
 
 
 /* Estilos del pie de pagina */
@@ -99,16 +104,25 @@ ul.menunav li a.active {background-color: #0045a1;}
   text-align: center;
 }
 
+
 /* Configuración para pantallas de maximo 780px de ancho */
 @media only screen and (max-width: 780px) {
   /* Ajustar el tamaño de las imagenes */
+  ul.menunav {
+    display: block;
+  }
+  ul.menunav li { 
+    float: none; 
+  } 
+  ul.menunav li a {
+    padding: 7px 8px;
+  }
   .mapa {
     max-width: 80vw;
   }
   .img_p {
     max-width: 60vw;
     max-height: 35vw;
-    box-shadow: 0 0px 4px 0 rgba(0,0,0,0.16),0 0px 10px 0 rgba(0,0,0,0.12);
     margin: 0.25vw
   }
 }
@@ -126,7 +140,7 @@ ul.menunav li a.active {background-color: #0045a1;}
   ul.menunav li a {
     padding: 7px 8px;
   }
-  /* Reducir el tamaño de los textos */
+  /* Ajustar el tamaño de los textos */
   p {
     font-size: 0.8em;
   }
@@ -140,11 +154,21 @@ ul.menunav li a.active {background-color: #0045a1;}
   .img_p {
     max-width: 80vw;
     max-height: 50vw;
-    box-shadow: 0 0px 4px 0 rgba(0,0,0,0.16),0 0px 10px 0 rgba(0,0,0,0.12);
     margin: 0.25vw
   }
   /* Ajustar el padding del contenedor*/
   .container {
     padding: 0 7vw 0 7vw;
   }
+}
+
+
+/* Estilos para el mapa interactivo de phaser */
+#mapa_interactivo {
+  text-align: center;
+  display: block;
+  margin: 0.5vw;
+  box-shadow: 0 0px 4px 0 rgba(0,0,0,0.16),0 0px 10px 0 rgba(0,0,0,0.12); /* Sombra alredor de los contenedores */
+  font-size: 20px; 
+  overflow-wrap: break-word;
 }
