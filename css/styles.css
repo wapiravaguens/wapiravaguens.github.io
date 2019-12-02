@@ -166,8 +166,7 @@ h3 {
 /* Estilos para el mapa interactivo de phaser */
 #mapa_interactivo {
   text-align: center;
-  display: block;
-  margin: 0.5vw;
+  margin: 1vw;
   box-shadow: 0 0px 4px 0 rgba(0,0,0,0.16),0 0px 10px 0 rgba(0,0,0,0.12); /* Sombra alredor de los contenedores */
   font-size: 20px; 
   overflow-wrap: break-word;

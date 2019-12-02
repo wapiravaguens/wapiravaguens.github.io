@@ -49,6 +49,7 @@ var picture; // Imagen de la sección de infórmación
 var selected = 0; // Indice del lugar seleccionado
 var showImage = false; // Booleando de mostrar o no la imagen
 var button_text; // Texto del boton
+var flag = false;
 
 // El estado del mapa con tres métodos básicos: preload, create y update
 var state = {
@@ -72,6 +73,8 @@ var state = {
       icons[i] = cnv.add.sprite(pos[i][0], pos[i][1], "icon" + (i).toString()); // Imprimir sprites
       icons[i].setScaleMinMax(0.425); // Ajustar el tamaño de los sprites
       icons[i].inputEnabled = true; // Habilitar selección 
+      icons[i].input.useHandCursor = true; // Habilitar selección 
+      icons[i].events.onInputDown.add(this.iconPressed, {id: i});
     }
 
     // Cuadro de información
@@ -92,7 +95,7 @@ var state = {
     picture.scale.setTo(0.70);
 
     // Boton para ver mas información
-    var button = cnv.add.button(1425, 560, 'button', this.actionOnClick, this, 2, 1, 0);
+    var button = cnv.add.button(1425, 560, 'button', this.buttonPressed, this, 2, 1, 0);
     button.scale.setTo(1, 0.8);
     button_text = cnv.add.text(1520, 567, "Imagen", {fill: "#ffffff", font: "30px Roboto-Regular", wordWrap: true, wordWrapWidth: 660});
     button_text.anchor.setTo(0.5, 0);
@@ -104,8 +107,7 @@ var state = {
       if (icons[i].input.pointerOver()){
         icons[i].setScaleMinMax(0.48); // Se incrementa la escala del sprite con el cursos encima
       }
-      if (icons[i].input.justPressed()) {
-        selected = i; // Actualiza el indice del lugar seleccionado
+      if (selected == i) {
         icons[selected].setScaleMinMax(0.48); // Se incrementa la escala del sprite seleccionado
         title.text = names[selected]; // Actualizar titulo del lugar seleccionado
         description.text = descriptions[selected]; // Actualizar descripción del lugar seleccionado
@@ -124,9 +126,13 @@ var state = {
     }
   },
 
-  actionOnClick: function(){
+  buttonPressed: function(){
     showImage = !showImage;
     button_text.text = showImage ? "Descripción" : "Imagen";
+  },
+
+  iconPressed: function(){
+    selected = this.id;  // Actualiza el indice del lugar seleccionado
   }
 }
 
