@@ -2,7 +2,7 @@
 var cnv = new Phaser.Game(1680, 720, Phaser.CANVAS, "mapa_interactivo");
 
 var background; // Mapa de fondo
-var icons = []; // Sprites del mapa
+var icons = []; // Iconos del mapa
 
 // Posiciones de los sprites
 var pos = [[510, 155],
@@ -104,7 +104,7 @@ var state = {
   
   update: function(){ // ejecuta de manera reiterativa
     for (var i = 0; i < icons.length; i++) {
-      icons[i].setScaleMinMax(0.425); // Reescalar los sprite a tamaño nomral
+      icons[i].setScaleMinMax(0.425); // Reescalar los sprite a tamaño normal
       if (icons[i].input.pointerOver()){
         icons[i].setScaleMinMax(0.48); // Se incrementa la escala del sprite con el cursos encima
       }

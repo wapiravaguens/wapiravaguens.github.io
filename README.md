@@ -8,4 +8,4 @@ Página web sobre Corea del Sur.
 
 ## Ejercicio 2
 
-Mapa interactivo lugares en Corea del Sur.
+Mapa interactivo de lugares en Corea del Sur.
