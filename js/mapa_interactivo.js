@@ -3,7 +3,10 @@ var cnv = new Phaser.Game(1680, 720, Phaser.CANVAS, "mapa_interactivo");
 
 var background; // Mapa de fondo
 var icons = []; // Sprites del mapa
-var pos = [[510, 155],[500,65] , // Posiciones de los sprites
+
+// Posiciones de los sprites
+var pos = [[510, 155],
+[500,65], 
 [440,0],
 [360,110],
 [370,210],
@@ -17,7 +20,7 @@ var pos = [[510, 155],[500,65] , // Posiciones de los sprites
 // Nombres de cada lugar
 var names = ["Lugares de Corea del Sur",
 "Parque Seoraksan",
-"Torre Namsan",
+"N Seoul Tower",
 "Templo Jogysa",
 "Fortaleza de Hwasong",
 "Jeonju Hanok",
@@ -31,8 +34,8 @@ var names = ["Lugares de Corea del Sur",
 // Descripción de cada lugar
 var descriptions = [
 "\nLa República de Corea (대한민국) es un país soberano de Asia Oriental, ubicado en la parte sur de la península de Corea, entre los muchos lugares que posee destacan sus templos, parques naturales y museos.\n\nSeleccione los diferentes lugares del mapa haciendo clic con el cursor o el dedo en los iconos rojos, también puede alternar entre imágenes y descripciones con el botón rojo ubicado en la parte inferior derecha.",
-"Es un área protegida que está en la lista tentativa del gobierno de Corea del Sur,1​2​ como Patrimonio de la Humanidad de la UNESCO. El gobierno coreano designó el área como una reserva natural en 1965 y la UNESCO designó el área como Reserva de la Biosfera en 1982. También fue el primer parque nacional de Corea en ser designado en virtud de la Ley de Parques Nacionales en 1970. Situado en el este y el centro de la península de Corea, la reserva abarca Injegun, Yanyanggun y Sokchosi. Es una de las atracciones más populares para los turistas y los amantes de la naturaleza en Corea. La Reserva Natural de Soraksan es valiosa por su belleza natural y la flora y la fauna.",
-"Es una torre de comunicaciones ubicada en el parque de Namsan, en el centro de Seúl, Corea del Sur. Construida en 1969, fue abierta al público en 1980, la torre ha devenido un símbolo de Seúl. Tiene una altura de 236,7 m. (a partir de la base) y se encuentra a 479,7 m. sobre el nivel del mar. También se le ha conocido como la Torre Namsan o la Torre de Seúl. Después de que el propietario inicial de la torre se fusionara con CJ Corporation, fue rebautizada con el nombre de la N Seoul Tower (nombre oficial CJ Seoul Tower).",
+"Es un área protegida que está en la lista tentativa del gobierno de Corea del Sur, como Patrimonio de la Humanidad de la UNESCO. El gobierno coreano designó el área como una reserva natural en 1965 y la UNESCO designó el área como Reserva de la Biosfera en 1982. También fue el primer parque nacional de Corea en ser designado en virtud de la Ley de Parques Nacionales en 1970. Situado en el este y el centro de la península de Corea, la reserva abarca Injegun, Yanyanggun y Sokchosi. Es una de las atracciones más populares para los turistas y los amantes de la naturaleza en Corea. La Reserva Natural de Soraksan es valiosa por su belleza natural y la flora y la fauna.",
+"Es una torre de comunicaciones ubicada en el parque de Namsan, en el centro de Seúl, Corea del Sur. Construida en 1969, fue abierta al público en 1980, la torre ha devenido un símbolo de Seúl. Tiene una altura de 236,7 m. (a partir de la base) y se encuentra a 479,7 m. sobre el nivel del mar. También se le ha conocido como la Torre Namsan o la Torre de Seúl. Después de que el propietario inicial de la torre se fusionara con CJ Corporation, fue rebautizada con el nombre de la N Seoul Tower (nombre oficial CJ Seoul Tower).\n\nLa mayoría de los visitantes toman el Teleférico de Namsan hasta la cima de la montaña y, a continuación, a pie hasta la torre. La torre cuenta con una tienda de regalos y restaurantes en la planta baja.",
 "El templo Jogyesa es el núcleo del budismo zen en Corea, en él se encuentran la oficina principal de administración del budismo coreano y la sala en donde se realiza la asamblea general, entre otras instalaciones.\n\nFue construido hacia finales del siglo XIV (época de Goryeo) en el interior del actual parque Susong, pero fue destruido (en un período indeterminado) debido a un incendio, y fue reconstruido en el año 1910. A lo largo de su historia ha tomado varios nombres, hasta que recibió la denominación de Jogyesa en el año 1954. El nombre deriva de la montaña Jogyesan, la cual fue el lugar en donde meditó el monje Hyeneungdaesa. Fue uno de los monjes más respetados, por lo cual sus enseñanzas y su vida han sido objeto de estudio a lo largo de la historia.",
 "Es una fortaleza en la ciudad de Suwon la capital provincial de Gyeonggi-do, Corea del Sur. Fue construida de 1794 a 1796. El rey Jeongjo de la Dinastía Chosŏn construyó la fortaleza para honrar y albergar los restos mortales de su padre el príncipe Sado. Este príncipe había sido condenado a morir encerrado dentro de un cofre de arroz por su propio padre, el rey Yeongjo, al no obedecer el mandato de suicidarse. Situado a 30 kilómetros al sur de Seúl y encerrando gran parte del centro de Suwon, la Fortaleza incluye el palacio Haenggung del Rey Jeongjo.",
 "Visitar la villa tradicional de Jeonju “Jeonju Hanok Village” es retroceder en el tiempo y al mismo tiempo estar en el siglo XXI. Ubicada en la ciudad de Jeonju, capital de la provincia de Jeollabuk-do, conserva en su interior una de las colecciones más grandes de las casas tradicionales coreanas conocidas como hanok. Dichas casas fueron por primera vez diseñadas y construidas durante la dinastía de Joseon en el siglo XIV y en Jeonju alrededor de 800 están organizadas dentro de una red de calles adoquinadas. La mayoría de ellas han sido transformadas en coffee shops, boutiques y guesthouses con todas las comodidades de nuestra era convirtiendo a esta villa en una atractiva escapada para el fin de semana.",
@@ -49,7 +52,6 @@ var picture; // Imagen de la sección de infórmación
 var selected = 0; // Indice del lugar seleccionado
 var showImage = false; // Booleando de mostrar o no la imagen
 var button_text; // Texto del boton
-var flag = false;
 
 // El estado del mapa con tres métodos básicos: preload, create y update
 var state = {
@@ -63,18 +65,17 @@ var state = {
       cnv.load.image("icon" + i.toString(), "img/map/icon" + i.toString() + ".png");
       cnv.load.image("img_" + i.toString(), "img/map/img_" + i.toString() + ".jpg");
     }
-
     cnv.load.spritesheet('button', 'img/map/button_sprite_sheet.png', 193, 71);
   },
   
   create: function() { // crea los actores y muestra las imágenes
-    background = cnv.add.tileSprite(0, 0, 1680, 720, "map"); // Imprimir fondo
+    background = cnv.add.tileSprite(0, 0, 1680, 720, "map"); // Agregar el mapa de fondo al canvas
     for (var i = 0; i <= 10; i++) { 
-      icons[i] = cnv.add.sprite(pos[i][0], pos[i][1], "icon" + (i).toString()); // Imprimir sprites
+      icons[i] = cnv.add.sprite(pos[i][0], pos[i][1], "icon" + (i).toString()); // Agregar los iconos del mapa al canvas
       icons[i].setScaleMinMax(0.425); // Ajustar el tamaño de los sprites
       icons[i].inputEnabled = true; // Habilitar selección 
-      icons[i].input.useHandCursor = true; // Habilitar selección 
-      icons[i].events.onInputDown.add(this.iconPressed, {id: i});
+      icons[i].input.useHandCursor = true;
+      icons[i].events.onInputDown.add(this.iconPressed, {id: i}); // Manejo de click sobre los iconos
     }
 
     // Cuadro de información
@@ -90,11 +91,11 @@ var state = {
     description = cnv.add.text(950, 205, descriptions[selected], {fill: "#ffffff", font: "20px Roboto-Regular", wordWrap: true, wordWrapWidth: 660});
 
     // Imagen del lugar
-    picture = cnv.add.image(1275, 375, "img_" + selected.toString() );
+    picture = cnv.add.image(1275, 375, "img_" + selected.toString());
     picture.anchor.setTo(0.5);
-    picture.scale.setTo(0.70);
+    picture.scale.setTo(0.7);
 
-    // Boton para ver mas información
+    // Boton para cambiar entre imagen y descripción
     var button = cnv.add.button(1425, 560, 'button', this.buttonPressed, this, 2, 1, 0);
     button.scale.setTo(1, 0.8);
     button_text = cnv.add.text(1520, 567, "Imagen", {fill: "#ffffff", font: "30px Roboto-Regular", wordWrap: true, wordWrapWidth: 660});
@@ -107,21 +108,20 @@ var state = {
       if (icons[i].input.pointerOver()){
         icons[i].setScaleMinMax(0.48); // Se incrementa la escala del sprite con el cursos encima
       }
-      if (selected == i) {
-        icons[selected].setScaleMinMax(0.48); // Se incrementa la escala del sprite seleccionado
-        title.text = names[selected]; // Actualizar titulo del lugar seleccionado
-        description.text = descriptions[selected]; // Actualizar descripción del lugar seleccionado
-        picture.loadTexture("img_" + selected.toString()); // Actualiza la imagen segun el lugar seleccionado
-      }
     }
+
+    icons[selected].setScaleMinMax(0.48); // Se incrementa la escala del sprite seleccionado
+    title.text = names[selected]; // Actualiza titulo del lugar seleccionado
+    description.text = descriptions[selected]; // Actualiza descripción del lugar seleccionado
+    picture.loadTexture("img_" + selected.toString()); // Actualiza la imagen segun el lugar seleccionado
 
     if (showImage) {
       // Quitar la descripción, luego mostrar la imagen
       description.text = ""; 
-      picture.moveUp();
+      picture.visible = true;
     } else {
       // Quitar la imagen, luego mostrar la descripción
-      picture.moveDown();
+      picture.visible = false;
       description.text = descriptions[selected];
     }
   },
@@ -136,5 +136,5 @@ var state = {
   }
 }
 
-cnv.state.add("map", state); // define a "jugando" como un estado
-cnv.state.start("map"); // inicia con el estado "jugando"
+cnv.state.add("map", state); // define a "map" como un estado
+cnv.state.start("map"); // inicia con el estado "map"
